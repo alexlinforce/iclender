@@ -13,17 +13,12 @@
             font-size: 18px;
             color: red;
         }
-        #downloadBtn:disabled {
-            background-color: #ccc;
-            color: #666;
-            cursor: not-allowed;
-        }
     </style>
 </head>
 <body>
     <div id="browserWarning">Please open this page in Safari for the best experience.</div>
     <h1>Download iCalendar Event</h1>
-    <button id="downloadBtn" disabled>Download Event</button>
+    <button id="downloadBtn">Download Event</button>
 
     <script>
         // 瀏覽器檢測
@@ -38,13 +33,11 @@
 
             if (!isSafari) {
                 document.getElementById('browserWarning').style.display = 'block';
-                downloadBtn.disabled = false;
                 downloadBtn.textContent = 'Search on Google';
                 downloadBtn.addEventListener('click', function() {
                     window.location.href = 'https://www.google.com';
                 });
             } else {
-                downloadBtn.disabled = false;
                 downloadBtn.addEventListener('click', function() {
                     // 定義事件資訊
                     const event = {
