@@ -24,7 +24,7 @@
         // 瀏覽器檢測
         function detectBrowser() {
             var userAgent = navigator.userAgent.toLowerCase();
-            var isSafari = userAgent.indexOf('safari') !== -1 && userAgent.indexOf('crios') === -1 && userAgent.indexOf('fxios') === -1;
+            var isSafari = userAgent.indexOf('safari') !== -1 && userAgent.indexOf('crios') === -1 && userAgent.indexOf('fxios') === -1 && userAgent.indexOf('chrome') === -1;
             var isIOS = /iPad|iPhone|iPod/.test(navigator.platform) || 
                         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
             return isIOS && isSafari;
