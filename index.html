@@ -27,7 +27,8 @@
             var isSafari = userAgent.indexOf('safari') !== -1 && userAgent.indexOf('crios') === -1 && userAgent.indexOf('fxios') === -1 && userAgent.indexOf('chrome') === -1;
             var isIOS = /iPad|iPhone|iPod/.test(navigator.platform) || 
                         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-            return isIOS && isSafari;
+            var isGoogleApp = userAgent.indexOf('gsa') !== -1;
+            return isIOS && isSafari && !isGoogleApp;
         }
 
         document.addEventListener('DOMContentLoaded', function() {
