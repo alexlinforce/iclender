@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download iCalendar Event</title>
+</head>
+<body>
+    <h1>Download iCalendar Event</h1>
+    <button id="downloadBtn">Download Event</button>
+
+    <script>
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            // 定義事件資訊
+            const event = {
+                subject: 'Meeting with John Doe',
+                startDate: new Date(2024, 5, 10, 10, 0, 0), // 注意：JavaScript 的月份是從 0 開始的，所以 5 表示 6 月
+                endDate: new Date(2024, 5, 10, 11, 0, 0),
+                description: 'Discussing project status and next steps.',
+                location: '123 Main St, Springfield, USA'
+            };
+
+            // 生成 iCalendar 文件內容
+            const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+DTSTAMP:${formatDateTime(new Date())}
+DTSTART:${formatDateTime(event.startDate)}
+DTEND:${formatDateTime(event.endDate)}
+SUMMARY:${event.subject}
+DESCRIPTION:${event.description}
+LOCATION:${event.location}
+END:VEVENT
+END:VCALENDAR`;
+
+            // 創建 Blob 以進行文件下載
+            const blob = new Blob([icsContent], { type: 'text/calendar' });
+            const url = URL.createObjectURL(blob);
+
+            // 創建臨時鏈接並觸發下載
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'event.ics';
+            document.body.appendChild(a);
+            a.click();
+
+            // 清理臨時鏈接
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        // 格式化日期時間為 iCalendar 標準格式
+        function formatDateTime(date) {
+            return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+        }
+    </script>
+</body>
+</html>
