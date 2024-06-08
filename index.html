@@ -4,12 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Download iCalendar Event</title>
+    <style>
+        #browserWarning {
+            display: none;
+            background-color: #ffcc00;
+            padding: 10px;
+            text-align: center;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
+    <div id="browserWarning">Please open this page in Safari for the best experience.</div>
     <h1>Download iCalendar Event</h1>
-    <button id="downloadBtn">Download Event</button>
+    <button id="downloadBtn" disabled>Download Event</button>
 
     <script>
+        // 瀏覽器檢測
+        function detectBrowser() {
+            var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+            return isSafari;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var isSafari = detectBrowser();
+            if (!isSafari) {
+                document.getElementById('browserWarning').style.display = 'block';
+            } else {
+                document.getElementById('downloadBtn').disabled = false;
+            }
+        });
+
         document.getElementById('downloadBtn').addEventListener('click', function() {
             // 定義事件資訊
             const event = {
