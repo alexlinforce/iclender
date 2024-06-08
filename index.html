@@ -11,6 +11,12 @@
             padding: 10px;
             text-align: center;
             font-size: 18px;
+            color: red;
+        }
+        #downloadBtn:disabled {
+            background-color: #ccc;
+            color: #666;
+            cursor: not-allowed;
         }
     </style>
 </head>
@@ -22,8 +28,8 @@
     <script>
         // 瀏覽器檢測
         function detectBrowser() {
-            var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-            return isSafari;
+            var userAgent = navigator.userAgent.toLowerCase();
+            return (userAgent.indexOf('safari') !== -1 && userAgent.indexOf('chrome') === -1 && userAgent.indexOf('android') === -1);
         }
 
         document.addEventListener('DOMContentLoaded', function() {
