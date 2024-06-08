@@ -33,9 +33,16 @@
 
             if (!isSafari) {
                 document.getElementById('browserWarning').style.display = 'block';
-                downloadBtn.textContent = 'Search on Google';
+                downloadBtn.textContent = 'Add to Google Calendar';
                 downloadBtn.addEventListener('click', function() {
-                    window.location.href = 'https://www.google.com';
+                    const googleCalendarUrl = createGoogleCalendarUrl({
+                        subject: 'Meeting with John Doe',
+                        startDate: new Date(2024, 5, 10, 10, 0, 0),
+                        endDate: new Date(2024, 5, 10, 11, 0, 0),
+                        description: 'Discussing project status and next steps.',
+                        location: '123 Main St, Springfield, USA'
+                    });
+                    window.location.href = googleCalendarUrl;
                 });
             } else {
                 downloadBtn.addEventListener('click', function() {
@@ -82,6 +89,14 @@ END:VCALENDAR`;
         // 格式化日期時間為 iCalendar 標準格式
         function formatDateTime(date) {
             return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+        }
+
+        // 創建 Google Calendar URL
+        function createGoogleCalendarUrl(event) {
+            const startDate = event.startDate.toISOString().replace(/-|:|\.\d+/g, '');
+            const endDate = event.endDate.toISOString().replace(/-|:|\.\d+/g, '');
+            const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.subject)}&dates=${startDate}/${endDate}&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent(event.location)}`;
+            return url;
         }
     </script>
 </body>
